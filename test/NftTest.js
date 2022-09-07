@@ -20,7 +20,7 @@ describe("AINFTCollection", function () {
   it("Should mint NFT with tokenID 1", async function () {
     
     const [user1] = await ethers.getSigners();
-    await APCollection.connect(user1).mint("https://ipfs.io/ipfs/QmXcahuzuu3puNwBB4aQZQajHAk1RdGc13WecjUQ4y1iVc")
+    await APCollection.connect(user1).mint()
 
     result = await APCollection.ownerOf(1)
     result.should.equal(user1.address)

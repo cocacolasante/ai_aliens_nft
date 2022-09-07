@@ -10,6 +10,10 @@ contract APCollection is ERC721URIStorage  {
 using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
+    address public admin;
+
+    string private baseURI = "https://ipfs.io/ipfs/QmbMiN9qC3MeZqyv7hpRXAKTYN6YpKj9Rbcp7b9eiwK7cY/";
+
     mapping(uint => address) public _ownerOfNFT;
     mapping(address=>uint) public NFTOwner;
 
@@ -20,9 +24,18 @@ using Counters for Counters.Counter;
         uint _tokenId
     );
 
-    constructor() ERC721("APCollection", "APNFT") {}
+    modifier onlyOwner{
+        require(msg.sender == admin);
+        _;
+    }
 
-    function mint(string memory tokenURI)
+    constructor(address _admin) ERC721("APCollection", "APNFT") {
+        admin = _admin;
+    }
+/*
+    _setTokenURI(newItemId, string(abi.encodePacked(baseURI, '/', newItemId.toString(), '.json')));
+*/
+    function mint()
         public
         returns (uint256)
     {
@@ -35,7 +48,7 @@ using Counters for Counters.Counter;
         _ownerOfNFT[newItemId] = msg.sender;
         NFTOwner[msg.sender] = newItemId;
 
-        _setTokenURI(newItemId, tokenURI);
+        _setTokenURI(newItemId, string(abi.encodePacked(baseURI, Strings.toString(newItemId), '.json')));
 
         return newItemId;
     }
@@ -48,5 +61,9 @@ using Counters for Counters.Counter;
 
         emit TokenBurned(msg.sender, address(0), tokenId);
 
+    }
+
+    function _baseURI() internal view virtual override returns (string memory) {
+        return baseURI;
     }
 }
