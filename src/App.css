@@ -69,3 +69,7 @@ footer{
   animation: gradient-animation 4s ease infinite;
   margin-right: 15px;
 }
+
+.switch-header{
+  font-size: 2rem;
+}

@@ -11,6 +11,7 @@ using Counters for Counters.Counter;
     Counters.Counter private _tokenIds;
 
     address public admin;
+    uint public tokenCount;
 
     string private baseURI = "https://ipfs.io/ipfs/QmbMiN9qC3MeZqyv7hpRXAKTYN6YpKj9Rbcp7b9eiwK7cY/";
 
@@ -38,6 +39,7 @@ using Counters for Counters.Counter;
         returns (uint256)
     {
         _tokenIds.increment();
+        tokenCount++;
 
         uint256 newItemId = _tokenIds.current();
 
@@ -56,6 +58,7 @@ using Counters for Counters.Counter;
         
         delete _ownerOfNFT[tokenId];
         NFTOwner[msg.sender] -= tokenId;
+        tokenCount--;
 
         emit TokenBurned(msg.sender, address(0), tokenId);
 
@@ -63,5 +66,9 @@ using Counters for Counters.Counter;
 
     function _baseURI() internal view virtual override returns (string memory) {
         return baseURI;
+    }
+
+    function getTokenCount() public view returns(uint){
+        return tokenCount;
     }
 }

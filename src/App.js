@@ -8,10 +8,11 @@ import contractAbi from "./utils/contractAbi.json"
 
 function App() {
 
-  const CONTRACT_ADDRESS ="0x5FbDB2315678afecb367f032d93F642f64180aa3"
+  const CONTRACT_ADDRESS ="0x99530220F66891ad215f31510b8f49e41d806862"
 
   const [account, setAccount] = useState("")
   const [network, setNetwork] = useState("")
+  const [tokensMinted, setTokensMinted] = useState("")
 
   const connectWallet = async () => {
     try {
@@ -45,10 +46,10 @@ function App() {
 
     const accounts = await ethereum.request({method: "eth_accounts"})
 
-    if(accounts.length !=0){
-      const account = accounts[0]
-      setAccount(account)
-      console.log(`Connected to ${account}`)
+    if(accounts.length !== 0){
+      const currentAccount = accounts[0]
+      setAccount(currentAccount)
+      console.log(`Connected to ${currentAccount}`)
     } else{
       console.log("No accounts authorized or connected")
     }
@@ -76,7 +77,7 @@ function App() {
         let txn = await NFTContract.mint()
         const receipt = await txn.wait()
 
-        if(receipt.status == 1){
+        if(receipt.status === 1){
           alert(`NFT Minted https://mumbai.polygonscan.com/tx/${txn.hash}`)
           console.log("Mint Successful!")
 
@@ -93,8 +94,64 @@ function App() {
   }
 
   useEffect(()=>{
+    // if(network === "Polygon Mumbai Testnet"){
+    //   fetchTokenCount();
+    // }
     checkIfWalletIsConnected();
-  },[])
+  },[account, network])
+
+  const renderMintButton = () => {
+    if(network !== "Polygon Mumbai Testnet"){
+      return (
+        <div>
+          <h4 className='switch-header'>Please Connect To Polygon Testnet</h4>
+        </div>
+      )
+    } 
+    return (
+      <div>
+        <button onClick={mintNFT} className='standard-button wallet-connect-btn'>Mint Now</button>
+      </div>
+    )
+  }
+
+  const renderConnectButton = () => {
+    if(!account){
+      return (
+        <div className='button-container'>
+          <button onClick={connectWallet} className='wallet-connect-btn standard-button'>Connect Wallet</button>
+      </div>
+      )
+    }else{
+    return (
+      <div className='button-container'>
+        <button onClick={null} className='wallet-connect-btn standard-button'><p> Wallet: {account.slice(0, 6)}...{account.slice(-4)} </p></button>
+      </div>
+    )
+  }
+  }
+
+  const fetchTokenCount = async () =>{
+    try{
+      const {ethereum} = window;
+      if(ethereum){
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer)
+        
+        console.log("connected to contract")
+
+        let tokenCount = await NFTContract.getTokenCount();
+        
+
+        setTokensMinted(tokenCount)
+        console.log(`${tokenCount} out of 75 NFTs have been minted`)
+
+      }
+    } catch(error){
+      console.log(error)
+    }
+  }
 
   return (
     <div className="App">
@@ -102,20 +159,23 @@ function App() {
         <div className='logo-div'>
           <img className='logo' src={logo} alt='logo' />
         </div>
-        <div className='button-container'>
-          <button onClick={connectWallet} className='wallet-connect-btn standard-button'>Connect Wallet</button>
-        </div>
+        {renderConnectButton()}
       </div>
       <div>
         <div className='header-container'>
           <h1 className='header'>Mint Your AI Alien Today!!</h1>
-          <h4>Free Mint</h4>
-          <button onClick={mintNFT} className='standard-button wallet-connect-btn'>Mint Now</button>
+          <h4>Free Mint!!</h4>
+          
+
+          {renderMintButton()}
+          
+          
         </div>
         <div>
             <h2>Recent Mints!</h2>
         </div>
       </div>
+      <button onClick={fetchTokenCount}>Fetch token count</button>
      
      
       <footer>Built By Crypted Sante</footer>
