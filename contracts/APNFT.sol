@@ -29,12 +29,10 @@ using Counters for Counters.Counter;
         _;
     }
 
-    constructor(address _admin) ERC721("APCollection", "APNFT") {
-        admin = _admin;
+    constructor() ERC721("APCollection", "APNFT") {
+        admin = payable(msg.sender);
     }
-/*
-    _setTokenURI(newItemId, string(abi.encodePacked(baseURI, '/', newItemId.toString(), '.json')));
-*/
+
     function mint()
         public
         returns (uint256)
