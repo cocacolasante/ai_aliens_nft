@@ -38,6 +38,12 @@ describe("AINFTCollection", function () {
     await APCollection.connect(user1).mint()
     expect(await APCollection.tokenURI(1)).to.equal("https://ipfs.io/ipfs/QmbMiN9qC3MeZqyv7hpRXAKTYN6YpKj9Rbcp7b9eiwK7cY/1.json")
   })
+  it("checks the token uri list for the correct uri", async () => {
+    const [user1] = await ethers.getSigners();
+    await APCollection.connect(user1).mint()
+
+    expect(await APCollection.tokenUriList(1)).to.equal("https://ipfs.io/ipfs/QmbMiN9qC3MeZqyv7hpRXAKTYN6YpKj9Rbcp7b9eiwK7cY/1.json")
+  })
   // it("Should burn a token", async () => {
   //   const [user1] = await ethers.getSigners();
   //   await APCollection.connect(user1).mint()

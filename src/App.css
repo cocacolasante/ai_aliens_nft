@@ -1,5 +1,6 @@
 .App {
   text-align: center;
+  overflow: scroll;
   background: rgb(26,26,46);
   background: linear-gradient(90deg, rgba(26,26,46,1) 34%, rgba(22,57,80,1) 50%, rgba(18,83,110,1) 64%, rgba(13,122,154,1) 80%, rgba(0,212,255,1) 100%, rgba(32,120,170,1) 100%);
 }
@@ -28,7 +29,7 @@
   
 }
 .wallet-connect-btn{
-  background: -webkit-linear-gradient(left, #FF1744, #F50057);
+  background: -webkit-linear-gradient(left, #FF1744, #e73775);
   font-size: 18px;
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
@@ -49,7 +50,7 @@ footer{
   background: rgb(26,26,46);
   background: linear-gradient(90deg, rgba(26,26,46,1) 34%, rgba(22,57,80,1) 50%, rgba(18,83,110,1) 64%, rgba(13,122,154,1) 80%, rgba(0,212,255,1) 100%, rgba(32,120,170,1) 100%);
   padding-bottom: 50px;
-  padding-top: 50px;
+  padding-top: 10px;
 }
 
 
@@ -67,7 +68,7 @@ footer{
 }
 
 .mint-button {
-  background: -webkit-linear-gradient(left, #a200d6, #ff6fdf);
+  background: -webkit-linear-gradient(left, #FF1744, #ff6fdf);
   background-size: 200% 200%;
   animation: gradient-animation 4s ease infinite;
   margin-right: 15px;
@@ -75,4 +76,64 @@ footer{
 
 .switch-header{
   font-size: 2rem;
+}
+
+.nft-img{
+  height: 200px;
+  width: auto;
+}
+
+.nft-container-grid{
+  display: inline-flex;
+  align-content: center;
+}
+.nft-card-container{
+  padding-left: 10px;
+  padding-right:10px;
+}
+
+.gradient-text {
+  background: -webkit-linear-gradient(left, #FF1744 40%, #ff6fdf 60%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: gradient-animation 4s ease infinite;
+}
+
+
+
+
+/* KeyFrames */
+@-webkit-keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes gradient-animation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }

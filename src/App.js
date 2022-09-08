@@ -4,15 +4,21 @@ import logo from "./assets/AC2.png"
 import { ethers } from 'ethers';
 import {networks} from "./utils/networks"
 import contractAbi from "./utils/contractAbi.json"
+import 'bootstrap/dist/css/bootstrap.min.css';
+
+import NftCards from './components/NftCard';
 
 
 function App() {
 
-  const CONTRACT_ADDRESS ="0x855d3c8076df8eB859A14A47c4A2503364919A59"
+  const CONTRACT_ADDRESS ="0x862E50D2af53357d78F9eC4f19a41CBF19894f97"
 
   const [account, setAccount] = useState("")
   const [network, setNetwork] = useState("")
   const [tokensMinted, setTokensMinted] = useState("")
+  const [nftList, setNftList] = useState([])
+
+
 
   const connectWallet = async () => {
     try {
@@ -91,6 +97,7 @@ function App() {
     }catch(error){
       console.log(error)
     }
+    fetchTokenCount();
   }
 
   useEffect(()=>{
@@ -98,7 +105,7 @@ function App() {
       fetchTokenCount();
     }
     checkIfWalletIsConnected();
-  },[account, network, tokensMinted])
+  },[account, network])
 
   const renderMintButton = () => {
     if(network !== "Polygon Mumbai Testnet"){
@@ -138,49 +145,84 @@ function App() {
         const provider = new ethers.providers.Web3Provider(ethereum)
         const signer = provider.getSigner()
         const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer)
-        
-        console.log("connected to contract")
 
         let tokenCount = await NFTContract.getTokenCount();
         
-
         setTokensMinted(tokenCount)
-
+        console.log("token count updated")
       }
     } catch(error){
       console.log(error)
     }
   }
 
-  return (
-    <div className="App">
-      <div className='nav-container'>
-        <div className='logo-div'>
-          <img className='logo' src={logo} alt='logo' />
-        </div>
-        {renderConnectButton()}
-      </div>
-      <div>
-        <div className='header-container'>
-          <h1 className='header'>Mint Your AI Alien Today!!</h1>
-          <h2>{tokensMinted.toString()} out of 75 Minted!</h2>
-          <h4>Free Mint!!</h4>
-          
-          
+ 
 
-          {renderMintButton()}
+  const fetchTokenURIList = async () => {
+    try{
+      const {ethereum } = window;
+
+      if(ethereum){
+        const provider = new ethers.providers.Web3Provider(ethereum)
+        const signer = provider.getSigner()
+        const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer)
+
+        console.log("contract connected")
+        
+
+        let totalTokens = await NFTContract.tokenCount();
+        const nftListArray = []
+
+        for(let i = 0; i < totalTokens; i++ ){
+
+          nftListArray.push(await NFTContract.tokenUriList(i));
+          console.log(await NFTContract.tokenUriList(i))
           
-          
+        }
+        setNftList(nftListArray)
+        
+      }
+    } catch(error) {
+      console.log(error)
+    }
+  }
+
+  
+
+
+  return (
+      <div className="App">
+        <div className='nav-container'>
+          <div className='logo-div'>
+            <img className='logo' src={logo} alt='logo' />
+          </div>
+          {renderConnectButton()}
         </div>
         <div>
-            <h2>Recent Mints!</h2>
+          <div className='header-container'>
+            <h1 className='header gradient-text'>Mint Your AI Alien Today!!</h1>
+            <h2 className='gradient-text'>{tokensMinted.toString()} out of 75 Minted!</h2>
+            <h4 className='gradient-text'>Free Mint!!</h4>
+            
+            
+
+            {renderMintButton()}
+            
+            
+          </div>
+          <div>
+              <h2 className='gradient-text'>Recent Mints!</h2>
+              
+              <NftCards />
+              
+
+          </div>
         </div>
-      </div>
-     
-     
-      <footer>Built By Crypted Sante</footer>
       
-    </div>
+      
+        <footer>Built By Crypted Sante</footer>
+        
+      </div>
   );
 }
 

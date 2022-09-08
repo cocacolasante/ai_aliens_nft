@@ -17,6 +17,7 @@ using Counters for Counters.Counter;
 
     mapping(uint => address) public _ownerOfNFT;
     mapping(address=>uint) public NFTOwner;
+    mapping(uint => string) public tokenUriList;
 
     //events 
     event TokenBurned(
@@ -51,6 +52,7 @@ using Counters for Counters.Counter;
 
         _setTokenURI(newItemId, newTokenURI);
         console.log(newTokenURI);
+        tokenUriList[tokenCount] = newTokenURI;
 
         return newItemId;
     }
