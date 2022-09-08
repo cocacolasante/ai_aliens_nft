@@ -29,7 +29,7 @@ using Counters for Counters.Counter;
         _;
     }
 
-    constructor() ERC721("APCollection", "APNFT") {
+    constructor() ERC721("AI Aliens", "AIA") {
         admin = payable(msg.sender);
     }
 

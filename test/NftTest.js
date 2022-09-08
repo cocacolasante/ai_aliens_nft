@@ -17,6 +17,10 @@ describe("AINFTCollection", function () {
     
     console.log("AI NFT collection was deployed to:", APCollection.address);
   }) 
+  it("Should return collection name and symbol", async () => {
+    expect(await APCollection.name()).to.equal("AI Aliens")
+    expect(await APCollection.symbol()).to.equal("AIA")
+  })
 
   it("Should mint NFT with tokenID 1", async function () {
     
