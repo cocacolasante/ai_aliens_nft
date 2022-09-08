@@ -47,8 +47,10 @@ using Counters for Counters.Counter;
 
         _ownerOfNFT[newItemId] = msg.sender;
         NFTOwner[msg.sender] = newItemId;
+        string memory newTokenURI = string(abi.encodePacked(baseURI, Strings.toString(newItemId), '.json'));
 
-        _setTokenURI(newItemId, string(abi.encodePacked(baseURI, Strings.toString(newItemId), '.json')));
+        _setTokenURI(newItemId, newTokenURI);
+        console.log(newTokenURI);
 
         return newItemId;
     }
@@ -64,11 +66,9 @@ using Counters for Counters.Counter;
 
     }
 
-    function _baseURI() internal view virtual override returns (string memory) {
-        return baseURI;
-    }
-
     function getTokenCount() public view returns(uint){
         return tokenCount;
     }
+
+  
 }

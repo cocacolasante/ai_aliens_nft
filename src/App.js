@@ -8,7 +8,7 @@ import contractAbi from "./utils/contractAbi.json"
 
 function App() {
 
-  const CONTRACT_ADDRESS ="0x99530220F66891ad215f31510b8f49e41d806862"
+  const CONTRACT_ADDRESS ="0x855d3c8076df8eB859A14A47c4A2503364919A59"
 
   const [account, setAccount] = useState("")
   const [network, setNetwork] = useState("")
@@ -94,11 +94,11 @@ function App() {
   }
 
   useEffect(()=>{
-    // if(network === "Polygon Mumbai Testnet"){
-    //   fetchTokenCount();
-    // }
+    if(network === "Polygon Mumbai Testnet"){
+      fetchTokenCount();
+    }
     checkIfWalletIsConnected();
-  },[account, network])
+  },[account, network, tokensMinted])
 
   const renderMintButton = () => {
     if(network !== "Polygon Mumbai Testnet"){
@@ -145,7 +145,6 @@ function App() {
         
 
         setTokensMinted(tokenCount)
-        console.log(`${tokenCount} out of 75 NFTs have been minted`)
 
       }
     } catch(error){
@@ -164,7 +163,9 @@ function App() {
       <div>
         <div className='header-container'>
           <h1 className='header'>Mint Your AI Alien Today!!</h1>
+          <h2>{tokensMinted.toString()} out of 75 Minted!</h2>
           <h4>Free Mint!!</h4>
+          
           
 
           {renderMintButton()}
@@ -175,7 +176,6 @@ function App() {
             <h2>Recent Mints!</h2>
         </div>
       </div>
-      <button onClick={fetchTokenCount}>Fetch token count</button>
      
      
       <footer>Built By Crypted Sante</footer>

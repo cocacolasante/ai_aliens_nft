@@ -15,7 +15,7 @@ describe("AINFTCollection", function () {
     APCollection = await APContract.deploy();
     await APCollection.deployed();
     
-    console.log("AI NFT collection was deployed to:", APCollection.address);
+    // console.log("AI NFT collection was deployed to:", APCollection.address);
   }) 
   it("Should return collection name and symbol", async () => {
     expect(await APCollection.name()).to.equal("AI Aliens")
@@ -26,18 +26,26 @@ describe("AINFTCollection", function () {
     
     const [user1] = await ethers.getSigners();
     await APCollection.connect(user1).mint()
+    await APCollection.connect(user1).mint()
+    await APCollection.connect(user1).mint()
 
     result = await APCollection.ownerOf(1)
+    console.log(result)
     result.should.equal(user1.address)
   });
-  it("Should burn a token", async () => {
+  it("Checks the token uri was set", async () => {
     const [user1] = await ethers.getSigners();
     await APCollection.connect(user1).mint()
-    await APCollection.connect(user1).mint()
-    expect(await APCollection.NFTOwner(user1.address)).to.equal(2)
-
-    await APCollection.connect(user1).burn(1)
-    expect(await APCollection.NFTOwner(user1.address)).to.equal(1)
-
+    expect(await APCollection.tokenURI(1)).to.equal("https://ipfs.io/ipfs/QmbMiN9qC3MeZqyv7hpRXAKTYN6YpKj9Rbcp7b9eiwK7cY/1.json")
   })
+  // it("Should burn a token", async () => {
+  //   const [user1] = await ethers.getSigners();
+  //   await APCollection.connect(user1).mint()
+  //   await APCollection.connect(user1).mint()
+  //   expect(await APCollection.NFTOwner(user1.address)).to.equal(2)
+
+  //   await APCollection.connect(user1).burn(1)
+  //   expect(await APCollection.NFTOwner(user1.address)).to.equal(1)
+
+  // })
 });
