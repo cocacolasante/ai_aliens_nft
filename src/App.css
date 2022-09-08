@@ -1,38 +1,51 @@
 .App {
   text-align: center;
+  background: rgb(26,26,46);
+  background: linear-gradient(90deg, rgba(26,26,46,1) 34%, rgba(22,57,80,1) 50%, rgba(18,83,110,1) 64%, rgba(13,122,154,1) 80%, rgba(0,212,255,1) 100%, rgba(32,120,170,1) 100%);
 }
 
-.App-logo {
-  height: 40vmin;
+.logo-div{
+  display: flexbox;
+  float: left;
+}
+
+.logo {
+  height: 100px;
   pointer-events: none;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.nav-container{
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+.button-container{
+  display: flexbox;
+  float: right;
+  padding-right: 40px;
+  border-radius: 10px;
+  height: 45px;
+  
+}
+.wallet-connect-btn{
+  background: -webkit-linear-gradient(left, #FF1744, #F50057);
+  font-size: 18px;
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
+  margin: 20px 10px;
+  border-radius: 20px;
+  padding: 0px 2rem;
+  background-size: 200% 200%;
+  animation: gradient-animation 4s ease infinite;
 }
 
-.App-link {
-  color: #61dafb;
+.header-container{
+  padding-top: 50px;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+footer{
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background: rgb(26,26,46);
+  background: linear-gradient(90deg, rgba(26,26,46,1) 34%, rgba(22,57,80,1) 50%, rgba(18,83,110,1) 64%, rgba(13,122,154,1) 80%, rgba(0,212,255,1) 100%, rgba(32,120,170,1) 100%);
 }
