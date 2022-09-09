@@ -5,13 +5,12 @@ require('dotenv').config();
 module.exports = {
   solidity: "0.8.9",
   networks: {
-    localhost: {},
     mumbai: {
       url: process.env.MUMBAI_URL,
       accounts: [process.env.TEST_PRIVATE_KEY],
     },
     mainnet: {
-      chainId: 1,
+      chainId: 137,
       url: process.env.POLYGON_MAINNET,
       accounts: [process.env.DEV_WALLET_KEY],
     },

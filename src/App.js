@@ -11,7 +11,7 @@ import NftCards from './components/NftCard';
 
 function App() {
 
-  const CONTRACT_ADDRESS ="0x862E50D2af53357d78F9eC4f19a41CBF19894f97"
+  const CONTRACT_ADDRESS ="0xA79e5A78B78568f716b543aA02E7ad930d86d581"
 
   const [account, setAccount] = useState("")
   const [network, setNetwork] = useState("")
@@ -84,7 +84,7 @@ function App() {
         const receipt = await txn.wait()
 
         if(receipt.status === 1){
-          alert(`NFT Minted https://mumbai.polygonscan.com/tx/${txn.hash}`)
+          alert(`NFT Minted https://polygonscan.com/tx/${txn.hash}`)
           console.log("Mint Successful!")
 
         } else {
@@ -101,17 +101,17 @@ function App() {
   }
 
   useEffect(()=>{
-    if(network === "Polygon Mumbai Testnet"){
+    if(network === "Polygon Mainnet"){
       fetchTokenCount();
     }
     checkIfWalletIsConnected();
   },[account, network])
 
   const renderMintButton = () => {
-    if(network !== "Polygon Mumbai Testnet"){
+    if(network !== "Polygon Mainnet"){
       return (
         <div>
-          <h4 className='switch-header'>Please Connect To Polygon Testnet</h4>
+          <h4 className='switch-header'>Please Connect To Polygon Mainnet</h4>
         </div>
       )
     } 
