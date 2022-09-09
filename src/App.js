@@ -16,7 +16,7 @@ function App() {
   const [account, setAccount] = useState("")
   const [network, setNetwork] = useState("")
   const [tokensMinted, setTokensMinted] = useState("")
-  const [nftList, setNftList] = useState([])
+  // const [nftList, setNftList] = useState([])
 
 
 
@@ -156,39 +156,34 @@ function App() {
     }
   }
 
- 
+  // const fetchTokenURIList = async () => {
+  //   try{
+  //     const {ethereum } = window;
 
-  const fetchTokenURIList = async () => {
-    try{
-      const {ethereum } = window;
+  //     if(ethereum){
+  //       const provider = new ethers.providers.Web3Provider(ethereum)
+  //       const signer = provider.getSigner()
+  //       const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer)
 
-      if(ethereum){
-        const provider = new ethers.providers.Web3Provider(ethereum)
-        const signer = provider.getSigner()
-        const NFTContract = new ethers.Contract(CONTRACT_ADDRESS, contractAbi.abi, signer)
-
-        console.log("contract connected")
+  //       console.log("contract connected")
         
 
-        let totalTokens = await NFTContract.tokenCount();
-        const nftListArray = []
+  //       let totalTokens = await NFTContract.tokenCount();
+  //       const nftListArray = []
 
-        for(let i = 0; i < totalTokens; i++ ){
+  //       for(let i = 0; i < totalTokens; i++ ){
 
-          nftListArray.push(await NFTContract.tokenUriList(i));
-          console.log(await NFTContract.tokenUriList(i))
+  //         nftListArray.push(await NFTContract.tokenUriList(i));
+  //         console.log(await NFTContract.tokenUriList(i))
           
-        }
-        setNftList(nftListArray)
+  //       }
+  //       setNftList(nftListArray)
         
-      }
-    } catch(error) {
-      console.log(error)
-    }
-  }
-
-  
-
+  //     }
+  //   } catch(error) {
+  //     console.log(error)
+  //   }
+  // }
 
   return (
       <div className="App">
