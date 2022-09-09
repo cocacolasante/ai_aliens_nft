@@ -220,7 +220,7 @@ function App() {
         </div>
       
       
-        <footer>Built By Crypted Sante</footer>
+        <footer><p className='gradient-text'>Built By Crypted Sante</p></footer>
         
       </div>
   );
