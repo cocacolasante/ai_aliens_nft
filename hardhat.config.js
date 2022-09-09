@@ -14,5 +14,10 @@ module.exports = {
       url: process.env.POLYGON_MAINNET,
       accounts: [process.env.DEV_WALLET_KEY],
     },
-  }
+  },
+  etherscan: {
+    apiKey:{
+      polygon: process.env.POLYGON_SCAN_KEY,
+    } 
+ }
 };
